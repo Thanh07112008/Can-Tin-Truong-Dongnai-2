@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quán Ăn Ngon - Cửa Hàng Trực Tuyến</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Tối ưu hóa CSS bằng cách nhóm các thuộc tính chung */
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #556270;
+            --bg-color: #fcefee;
+            --card-bg: #fff;
+            --text-color: #333;
+            --border-radius: 12px;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 15px 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        #admin-btn {
+            background-color: #fff;
+            color: var(--primary-color);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        #admin-btn:hover {
+            background-color: #ffe6e6;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            padding: 0 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            font-size: 2em;
+            color: var(--secondary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+        #product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            background: var(--card-bg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .product:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transform: scale(1.03);
+        }
+
+        .product img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product h3 {
+            margin: 10px 0 5px 0;
+            font-size: 1.2em;
+            color: var(--text-color);
+        }
+
+        .product p {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .product button {
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .product button:hover {
+            background: #ff4a4a;
+        }
+
+        .main-action-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        #order-btn {
+            background-color: var(--secondary-color);
+            color: #fff;
+            border: none;
+        }
+
+        #order-btn:hover {
+            background-color: #44505c;
+            transform: translateY(-2px);
+        }
+
+        #check-order-btn {
+            background: #2ecc71; /* Green color */
+            color: #fff;
+            border: none;
+        }
+
+        #check-order-btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-info h4 {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .cart-item-info p {
+            margin: 5px 0 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-control button {
+            background: #f0f0f0;
+            color: #555;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .quantity-control button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .quantity-control span {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        
+        #check-order-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 10px;
+            color: #388e3c;
+        }
+        
+        #check-order-result ul {
+            text-align: left;
+            padding-left: 20px;
+            margin: 10px 0 0;
+        }
+        
+        .modal, .admin-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            min-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .admin-page-content {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            min-width: 90%;
+            max-width: 1000px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .admin-header h2 {
+            border-bottom: none;
+            margin-bottom: 0;
+            color: var(--secondary-color);
+        }
+
+        #orders-list-admin {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+
+        .admin-order-item {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .admin-order-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-info p {
+            margin: 5px 0;
+        }
+        
+        .order-info h4 {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .order-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .order-actions button {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border-radius: 8px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .order-actions .btn-nhan-don {
+            background: #2ecc71;
+        }
+        .order-actions .btn-nhan-don:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .order-actions .btn-xoa-don {
+            background: #dc3545;
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .status-pending {
+            background-color: #ffeb3b; /* Vàng */
+            color: #795548;
+        }
+        
+        .status-received {
+            background-color: #4caf50; /* Xanh lá cây */
+            color: #fff;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: #999;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <h1>Quán Ăn Ngon 😋</h1>
+            <button id="admin-btn">Quản Trị Viên</button>
+        </header>
+        <div class="container main-container">
+            <section id="products" class="card">
+                <h2>Món Ngon Mỗi Ngày ✨</h2>
+                <div id="product-list"></div>
+            </section>
+            <section id="cart" class="card">
+                <h2>Giỏ Hàng Của Bạn 🛒</h2>
+                <div id="cart-items">Giỏ hàng trống.</div>
+                <div id="cart-total" style="font-size: 1.5em; font-weight: bold; text-align: right; margin-top: 20px; color: var(--secondary-color);">Tổng tiền: 0 VNĐ</div>
+                <button id="order-btn" class="main-action-btn">Đặt Hàng Ngay</button>
+                <button id="check-order-btn" class="main-action-btn">Kiểm Tra Đơn Hàng</button>
+                <div id="check-order-result"></div>
+            </section>
+        </div>
+    </div>
+    
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeAdminModal()">&times;</button>
+            <div id="admin-login">
+                <h3>Đăng Nhập Quản Trị</h3>
+                <input id="admin-user" placeholder="Tài khoản" style="width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;" /><br>
+                <input id="admin-pass" type="password" placeholder="Mật khẩu" style="width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;" /><br>
+                <button onclick="adminLogin()">Đăng Nhập</button>
+                <div id="admin-error" style="color:red; margin-top:10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-page" class="admin-page">
+        <div class="admin-page-content">
+            <div class="admin-header">
+                <h2>Trang Quản Trị Đơn Hàng ✨</h2>
+                <button onclick="logoutAdmin()" class="btn-xoa-don"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+            </div>
+            <div id="orders-list-admin"></div>
+        </div>
+    </div>
+    
+    <script>
+        const JSONBIN_API_KEY = '$2a$10$Ty8HvRqKPOpJsXQRP.cLxeAARlfxR9z2.XRrPnzWKzLtCsoqutZba';
+        const JSONBIN_BIN_ID = '68ac4d92ae596e708fd50e99';
+
+        const products = [
+            { name: "Phở Bò 🍲", price: 40000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/1200-1200x676-13.jpg" },
+            { name: "Bánh Mì Thịt 🥖", price: 20000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/1200-1200x676-2.jpg" },
+            { name: "Cơm Tấm 🍚", price: 35000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/1200-1200x676-14.jpg" },
+            { name: "Bún Chả 🍜", price: 45000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/1200-1200x676-11.jpg" },
+            { name: "Gỏi Cuốn 🥗", price: 25000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/1200-1200x676-9.jpg" },
+            { name: "Mì 🍝", price: 50000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/mi-goi-thit-bo-1200x676.jpg" },
+            { name: "Chè Đậu Xanh 🍮", price: 15000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/che-dau-xanh-1200x676.jpg" },
+            { name: "Cà Phê Sữa ☕", price: 18000, image: "https://cdn.tgdd.vn/2021/06/CookProduct/ca-phe-sua-da-1200x676.jpg" }
+        ];
+
+        let cart = [];
+        let orders = [];
+        let refreshIntervalId;
+
+        async function fetchOrders() {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': JSONBIN_API_KEY }
+                });
+                if (!res.ok) throw new Error('Failed to fetch orders');
+                const data = await res.json();
+                return (data && data.record && Array.isArray(data.record.orders)) ? data.record.orders : [];
+            } catch (err) {
+                console.error('Error fetching orders:', err);
+                return [];
+            }
+        }
+
+        async function saveOrders(remoteOrders) {
+            try {
+                await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_API_KEY },
+                    body: JSON.stringify({ orders: remoteOrders })
+                });
+            } catch (err) {
+                console.error('Error saving orders:', err);
+            }
+        }
+
+        function renderProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = products.map((product, idx) => `
+                <div class="product">
+                    <img src="${product.image}" alt="${product.name}" />
+                    <h3>${product.name}</h3>
+                    <p>Giá: ${product.price.toLocaleString()} VNĐ</p>
+                    <button onclick="addToCart(${idx})">Thêm vào giỏ</button>
+                </div>
+            `).join('');
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            if (cart.length === 0) {
+                cartItems.innerHTML = 'Giỏ hàng trống.';
+                cartTotal.innerHTML = 'Tổng tiền: 0 VNĐ';
+                return;
+            }
+            let total = 0;
+            cartItems.innerHTML = cart.map((item, idx) => {
+                total += item.price * item.quantity;
+                return `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" />
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.price.toLocaleString()} VNĐ</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button onclick="changeQty(${idx}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQty(${idx}, 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            cartTotal.innerHTML = `Tổng tiền: ${total.toLocaleString()} VNĐ`;
+        }
+
+        window.changeQty = function(idx, delta) {
+            cart[idx].quantity += delta;
+            if (cart[idx].quantity <= 0) {
+                cart.splice(idx, 1);
+            }
+            renderCart();
+        };
+
+        window.addToCart = function(idx) {
+            const prod = products[idx];
+            const found = cart.find(item => item.name === prod.name);
+            if (found) {
+                found.quantity += 1;
+            } else {
+                cart.push({ ...prod, quantity: 1 });
+            }
+            renderCart();
+        };
+
+        function generateOrderCode() {
+            return 'DH' + Math.floor(100000 + Math.random() * 900000);
+        }
+
+        document.getElementById('order-btn').onclick = async function() {
+            if (cart.length === 0) {
+                alert('Vui lòng chọn ít nhất một sản phẩm để đặt hàng!');
+                return;
+            }
+            const currentOrders = await fetchOrders();
+            const newOrder = {
+                code: generateOrderCode(),
+                items: cart.map(item => ({ name: item.name, price: item.price, quantity: item.quantity })),
+                time: new Date().toLocaleString('vi-VN'),
+                status: "pending"
+            };
+            const updatedOrders = [...currentOrders, newOrder];
+            await saveOrders(updatedOrders);
+            alert('Đặt hàng thành công! Mã đơn hàng của bạn: ' + newOrder.code);
+            cart = [];
+            renderCart();
+        };
+
+        document.getElementById('check-order-btn').onclick = async function() {
+            const code = prompt('Nhập mã đơn hàng của bạn:');
+            if (!code) return;
+            const allOrders = await fetchOrders();
+            const found = allOrders.find(order => order.code === code.trim());
+            const resultDiv = document.getElementById('check-order-result');
+            if (found) {
+                const statusText = found.status === "received" ? "Đã nhận đơn" : "Chưa nhận đơn";
+                const statusClass = found.status === "received" ? "status-received" : "status-pending";
+                const total = found.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                resultDiv.innerHTML = `
+                    <b>Trạng thái:</b> <span class="${statusClass} status-tag">${statusText}</span><br>
+                    <b>Mã đơn hàng:</b> ${found.code}<br>
+                    <b>Thời gian:</b> ${found.time || '-'}<br>
+                    <b>Tổng tiền:</b> ${total.toLocaleString()} VNĐ<br>
+                    <b>Sản phẩm:</b>
+                    <ul>
+                        ${found.items.map(item => `<li>${item.name} x ${item.quantity} (${item.price.toLocaleString()} VNĐ)</li>`).join('')}
+                    </ul>
+                `;
+            } else {
+                resultDiv.innerHTML = '<span style="color:red;">Không tìm thấy đơn hàng!</span>';
+            }
+        };
+
+        window.adminLogin = async function() {
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+            if (user === 'thanh' && pass === '1') {
+                document.getElementById('admin-modal').style.display = 'none';
+                document.getElementById('admin-page').style.display = 'flex';
+                await showOrdersAdmin();
+                // Refresh every 10 seconds to get new orders
+                refreshIntervalId = setInterval(showOrdersAdmin, 10000);
+            } else {
+                document.getElementById('admin-error').innerText = 'Sai tài khoản hoặc mật khẩu!';
+            }
+        };
+
+        window.closeAdminModal = function() {
+            document.getElementById('admin-modal').style.display = 'none';
+        };
+
+        window.logoutAdmin = function() {
+            clearInterval(refreshIntervalId);
+            document.getElementById('admin-page').style.display = 'none';
+            document.querySelector('.overlay').style.display = 'block';
+        };
+
+        async function showOrdersAdmin() {
+            const ordersList = document.getElementById('orders-list-admin');
+            ordersList.innerHTML = 'Đang tải đơn hàng...';
+            
+            orders = await fetchOrders();
+            if (!Array.isArray(orders) || orders.length === 0) {
+                ordersList.innerHTML = '<i>Chưa có đơn hàng nào.</i>';
+                return;
+            }
+            orders.sort((a, b) => new Date(b.time) - new Date(a.time));
+            ordersList.innerHTML = orders.map((order, idx) => {
+                const total = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const statusText = order.status === "received" ? "Đã nhận đơn" : "Chưa nhận đơn";
+                const statusClass = order.status === "received" ? "status-received" : "status-pending";
+                const isDisabled = order.status === "received" ? 'disabled' : '';
+
+                return `
+                    <div class="admin-order-item">
+                        <div class="order-info">
+                            <h4>Mã đơn hàng: ${order.code}</h4>
+                            <p><b>Thời gian:</b> ${order.time || '-'}</p>
+                            <p><b>Trạng thái:</b> <span class="${statusClass} status-tag">${statusText}</span></p>
+                            <p><b>Tổng tiền:</b> ${total.toLocaleString()} VNĐ</p>
+                            <p><b>Chi tiết:</b></p>
+                            <ul style="list-style-type: disc; padding-left: 20px; margin-top: 5px;">
+                                ${order.items.map(item => `<li>${item.name} x ${item.quantity} (${item.price.toLocaleString()} VNĐ)</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn-nhan-don" onclick="markOrderAsReceived(${idx})" ${isDisabled}>
+                                <i class="fas fa-check"></i> Nhận đơn
+                            </button>
+                            <button class="btn-xoa-don" onclick="deleteOrderAdmin(${idx})">
+                                <i class="fas fa-trash-alt"></i> Xóa Đơn
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.markOrderAsReceived = async function(idx) {
+            orders = await fetchOrders();
+            orders[idx].status = "received";
+            await saveOrders(orders);
+            await showOrdersAdmin();
+        };
+
+        window.deleteOrderAdmin = async function(idx) {
+            if (!confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')) return;
+            orders = await fetchOrders();
+            orders.splice(idx, 1);
+            await saveOrders(orders);
+            await showOrdersAdmin();
+        };
+
+        document.getElementById('admin-btn').onclick = function() {
+            document.getElementById('admin-modal').style.display = 'flex';
+            document.getElementById('admin-user').value = '';
+            document.getElementById('admin-pass').value = '';
+            document.getElementById('admin-error').innerText = '';
+        };
+        
+        // Initial rendering
+        renderProducts();
+        renderCart();
+    </script>
+</body>
+</html>
